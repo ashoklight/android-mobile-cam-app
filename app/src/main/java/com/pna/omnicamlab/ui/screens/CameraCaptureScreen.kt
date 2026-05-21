@@ -257,7 +257,8 @@ fun CameraCaptureScreen(
       displayRotation,
       forcedPreviewRotation,
       isFrontCamera,
-      scaleMode
+      scaleMode,
+      sensorOrientation
     ) {
       PreviewTransformHelper.buildTransform(
         viewWidth = containerWidth,
@@ -265,6 +266,7 @@ fun CameraCaptureScreen(
         previewWidth = selectedPreviewSize.width,
         previewHeight = selectedPreviewSize.height,
         displayRotation = displayRotation,
+        sensorOrientation = sensorOrientation,
         forcedRotationDegrees = forcedPreviewRotation,
         mirrorForFrontCamera = isFrontCamera,
         scaleType = scaleMode

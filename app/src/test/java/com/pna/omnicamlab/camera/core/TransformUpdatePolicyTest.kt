@@ -39,12 +39,12 @@ class TransformUpdatePolicyTest {
             scaleType = PreviewScaleType.CENTER_CROP
         )
 
-        // Rotation 90 degrees maps to auto rotation of 270 degrees, which swaps effective dimensions.
-        assertEquals(previewHeight.toFloat(), rotation90Result.effectiveW)
-        assertEquals(previewWidth.toFloat(), rotation90Result.effectiveH)
+        // displayRotation = Surface.ROTATION_90 maps to activeRotationDegrees = 270, total rotation = 0 -> NOT Swapped.
+        assertEquals(previewWidth.toFloat(), rotation90Result.effectiveW)
+        assertEquals(previewHeight.toFloat(), rotation90Result.effectiveH)
 
-        // ROTATION_0 keeps landscape effective dimensions intact.
-        assertEquals(previewWidth.toFloat(), baseResult.effectiveW)
-        assertEquals(previewHeight.toFloat(), baseResult.effectiveH)
+        // displayRotation = Surface.ROTATION_0 maps to activeRotationDegrees = 0, total rotation = 90 -> Swapped.
+        assertEquals(previewHeight.toFloat(), baseResult.effectiveW)
+        assertEquals(previewWidth.toFloat(), baseResult.effectiveH)
     }
 }

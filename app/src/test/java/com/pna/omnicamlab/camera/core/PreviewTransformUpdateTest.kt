@@ -33,11 +33,13 @@ class PreviewTransformUpdateTest {
             scaleType = PreviewScaleType.CENTER_CROP
         )
 
-        // The effective buffer width and height should be swapped since ROTATION_90 maps to 270 degrees rotation
+        // The effective buffer width and height should be swapped correctly based on sensorOrientation
         assertNotEquals(rot0Result.effectiveW, rot90Result.effectiveW)
         assertNotEquals(rot0Result.effectiveH, rot90Result.effectiveH)
-        assertEquals(previewHeight.toFloat(), rot90Result.effectiveW)
-        assertEquals(previewWidth.toFloat(), rot90Result.effectiveH)
+        assertEquals(previewHeight.toFloat(), rot0Result.effectiveW)
+        assertEquals(previewWidth.toFloat(), rot0Result.effectiveH)
+        assertEquals(previewWidth.toFloat(), rot90Result.effectiveW)
+        assertEquals(previewHeight.toFloat(), rot90Result.effectiveH)
     }
 
     @Test

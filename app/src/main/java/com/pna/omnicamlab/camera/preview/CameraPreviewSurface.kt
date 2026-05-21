@@ -225,6 +225,7 @@ private fun applyTransform(
         previewWidth = previewSize.width,
         previewHeight = previewSize.height,
         displayRotation = displayRotOverride,
+        sensorOrientation = sensorOrient,
         forcedRotationDegrees = forcedRotation,
         mirrorForFrontCamera = isFrontCamera,
         scaleType = scaleMode

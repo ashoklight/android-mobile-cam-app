@@ -170,20 +170,36 @@ class PreviewTransformCalibrationTest {
         assertEquals("scaleX must equal scaleY for uniform scale", fitResult.scaleX, fitResult.scaleY, 1e-4f)
         assertEquals("aspectRatioOk must be true", true, fitResult.aspectRatioOk)
 
-        // 3. 90/270 Swaps Effective Dimensions
-        val rotation90Result = PreviewTransformHelper.buildTransform(
+        // 3. Sensor Orientation + Matrix Rotation Swaps Effective Dimensions correctly
+        // sensorOrientation = 90, forcedRotation = 0 -> total = 90 -> Swapped
+        val swapResult = PreviewTransformHelper.buildTransform(
             viewWidth = viewWidth,
             viewHeight = viewHeight,
             previewWidth = previewWidth,
             previewHeight = previewHeight,
             displayRotation = Surface.ROTATION_0,
+            sensorOrientation = 90,
+            forcedRotationDegrees = 0,
+            mirrorForFrontCamera = false,
+            scaleType = PreviewScaleType.CENTER_CROP
+        )
+        assertEquals(previewHeight.toFloat(), swapResult.effectiveW)
+        assertEquals(previewWidth.toFloat(), swapResult.effectiveH)
+
+        // sensorOrientation = 90, forcedRotation = 90 -> total = 180 -> Not Swapped
+        val noSwapResult = PreviewTransformHelper.buildTransform(
+            viewWidth = viewWidth,
+            viewHeight = viewHeight,
+            previewWidth = previewWidth,
+            previewHeight = previewHeight,
+            displayRotation = Surface.ROTATION_0,
+            sensorOrientation = 90,
             forcedRotationDegrees = 90,
             mirrorForFrontCamera = false,
             scaleType = PreviewScaleType.CENTER_CROP
         )
-        // Effective dimensions when rotated by 90 should be previewHeight by previewWidth (1080x1920)
-        assertEquals(previewHeight.toFloat(), rotation90Result.effectiveW)
-        assertEquals(previewWidth.toFloat(), rotation90Result.effectiveH)
+        assertEquals(previewWidth.toFloat(), noSwapResult.effectiveW)
+        assertEquals(previewHeight.toFloat(), noSwapResult.effectiveH)
 
         // 4. Zero dimensions should handle gracefully
         val zeroResult = PreviewTransformHelper.buildTransform(

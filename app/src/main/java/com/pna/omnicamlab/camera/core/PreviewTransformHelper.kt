@@ -46,6 +46,7 @@ object PreviewTransformHelper {
         previewWidth: Int,
         previewHeight: Int,
         displayRotation: Int,
+        sensorOrientation: Int = 90,
         forcedRotationDegrees: Int? = null,
         mirrorForFrontCamera: Boolean = false,
         scaleType: PreviewScaleType = PreviewScaleType.CENTER_CROP
@@ -72,8 +73,9 @@ object PreviewTransformHelper {
 
         val activeRotationDegrees = forcedRotationDegrees ?: getAutoPreviewRotationDegrees(displayRotation)
 
-        // 1. Calculate effective buffer dimensions swapping for 90 or 270 degrees
-        val (effectiveW, effectiveH) = if (activeRotationDegrees == 90 || activeRotationDegrees == 270) {
+        // 1. Calculate effective buffer dimensions swapping based on total rotation relative to natural layout
+        val totalRotation = (sensorOrientation + activeRotationDegrees) % 360
+        val (effectiveW, effectiveH) = if (totalRotation % 180 != 0) {
             previewHeight.toFloat() to previewWidth.toFloat()
         } else {
             previewWidth.toFloat() to previewHeight.toFloat()
@@ -148,6 +150,7 @@ object PreviewTransformHelper {
             previewWidth = previewWidth,
             previewHeight = previewHeight,
             displayRotation = displayRotation,
+            sensorOrientation = 90,
             forcedRotationDegrees = forcedRotationDegrees,
             mirrorForFrontCamera = mirrorForFrontCamera,
             scaleType = PreviewScaleType.CENTER_CROP
