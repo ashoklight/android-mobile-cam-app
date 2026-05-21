@@ -1,0 +1,44 @@
+package com.pna.omnicamlab.camera.capabilities
+
+enum class CameraFacing {
+    FRONT,
+    BACK,
+    EXTERNAL,
+    UNKNOWN
+}
+
+enum class HardwareLevel {
+    LEGACY,
+    LIMITED,
+    FULL,
+    LEVEL_3,
+    EXTERNAL,
+    UNKNOWN
+}
+
+enum class SupportState {
+    SUPPORTED_VERIFIED,
+    SUPPORTED_UNVERIFIED,
+    EXTENSION_ONLY,
+    SOFTWARE_SIMULATED,
+    UNSUPPORTED,
+    UNKNOWN
+}
+
+enum class CameraCapability {
+    MANUAL_SENSOR,
+    MANUAL_POST_PROCESSING,
+    RAW_CAPTURE,
+    BURST_CAPTURE,
+    LOGICAL_MULTI_CAMERA,
+    DEPTH_OUTPUT,
+    PRIVATE_REPROCESSING,
+    YUV_REPROCESSING,
+    CONSTRAINED_HIGH_SPEED_VIDEO,
+    BACKWARD_COMPATIBLE,
+    ULTRA_HIGH_RESOLUTION_SENSOR,
+    MONOCHROME,
+    SECURE_IMAGE_DATA,
+    READ_SENSOR_SETTINGS,
+    UNKNOWN
+}
